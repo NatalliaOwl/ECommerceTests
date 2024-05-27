@@ -5,11 +5,12 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import utils.LoggerUtils;
 
 import static utils.TestData.BASE_URL;
 import static utils.TestData.HOME_END_POINT;
 
-abstract class BaseTest {
+public abstract class BaseTest {
 
     private final Playwright playwright = Playwright.create();
     private final Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions()
@@ -21,9 +22,9 @@ abstract class BaseTest {
     @BeforeSuite
     void checkIfPlaywrightCreatedAndBrowserLaunched() {
         if (playwright != null) {
-            System.out.println("Playwright created");
+            LoggerUtils.logInfo("Playwright created");
         } else {
-            System.out.println("FATAL: Playwright is NOT created.");
+            LoggerUtils.logFatal("FATAL: Playwright is NOT created.");
             System.exit(1);
         }
 
